@@ -39,6 +39,15 @@ const linkActive = "text-slate-50";
       >
         Start free trial
       </a>
+	  <!-- 🌗 Theme toggle button -->
+	  <button
+		type="button"
+		class="hidden md:inline-flex items-center justify-center rounded-full border border-slate-700 w-9 h-9 text-xs text-slate-200 ml-2"
+		aria-label="Toggle color theme"
+		data-theme-toggle
+	  >
+		☾
+	  </button>
     </nav>
 
     <!-- Mobile hamburger (animates to X) -->
@@ -105,12 +114,15 @@ const linkActive = "text-slate-50";
     ></div>
   </div>
 
+
   <script>
     if (typeof window !== "undefined") {
       window.addEventListener("DOMContentLoaded", () => {
         const toggle = document.querySelector("[data-mobile-menu-toggle]");
         const menu = document.getElementById("mobile-menu");
         const backdrop = document.getElementById("mobile-backdrop");
+		const themeToggle = document.querySelector("[data-theme-toggle]");
+		
         if (!toggle || !menu || !backdrop) return;
 
         let open = false;
@@ -144,9 +156,30 @@ const linkActive = "text-slate-50";
           if (open) updateBackdropPosition();
         };
 
-        toggle.addEventListener("click", () => setOpen(!open));
-        backdrop.addEventListener("click", () => open && setOpen(false));
-        window.addEventListener("resize", () => open && updateBackdropPosition());
+        if (toggle && menu && backdrop) {
+			toggle.addEventListener("click", () => setOpen(!open));
+			backdrop.addEventListener("click", () => open && setOpen(false));
+			window.addEventListener("resize", () => open && updateBackdropPosition());
+		  }	
+		
+
+		// 🌗 Theme toggle logic
+      const applyTheme = (theme) => {
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.classList.toggle("dark", theme === "dark");
+        try {
+          localStorage.setItem("ps-theme", theme);
+        } catch (e) {
+          // ignore
+        }
+      };
+
+      if (themeToggle) {
+        themeToggle.addEventListener("click", () => {
+          const current = document.documentElement.dataset.theme || "dark";
+          applyTheme(current === "dark" ? "light" : "dark");
+        });
+      }
       });
     }
   </script>

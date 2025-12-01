@@ -1,0 +1,136 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const example = `“Onboarding feels confusing, I don't know what to do first.”
+“The pricing page is unclear, not sure which plan to pick.”
+“Love the product, but release notes are hard to find.”
+“Support was slow to respond last week.”
+“Onboarding emails helped a lot, but the in-app tour was too long.”`;
+---
+
+<BaseLayout
+  title="PulseStack Demo – Sample Feedback Ingestion"
+  description="Paste your customer feedback and see how PulseStack might group themes."
+  active="features"
+  url="https://pulsestack-astro.pages.dev/demo"
+>
+  <section class="mx-auto max-w-6xl px-4 py-16 space-y-8">
+    <div class="max-w-2xl space-y-3">
+      <h1 class="text-3xl md:text-4xl font-semibold tracking-tight text-slate-50">
+        Try a lightweight feedback clustering demo.
+      </h1>
+      <p class="text-sm md:text-base text-slate-300">
+        Paste a few lines of customer feedback and see how PulseStack could group related themes. This is a simple front-end demo — you can later connect it to a real AI API.
+      </p>
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-2">
+      <div class="space-y-3">
+        <label class="text-xs font-medium text-slate-200">
+          Paste sample feedback (one comment per line)
+        </label>
+        <textarea
+          id="demo-input"
+          class="w-full min-h-[220px] rounded-2xl border border-slate-800 bg-slate-950/80 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/70"
+        >{example}</textarea>
+        <button
+          id="demo-analyze"
+          class="inline-flex items-center justify-center rounded-full bg-indigo-500 px-5 py-2 text-sm font-medium text-slate-950 hover:bg-indigo-400 transition"
+          type="button"
+        >
+          Analyze sample feedback
+        </button>
+        <p class="text-[11px] text-slate-500">
+          This demo runs entirely in your browser and doesn’t send data anywhere.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <p class="text-xs font-medium text-slate-200">
+          Detected themes (mocked locally)
+        </p>
+        <div
+          id="demo-output"
+          class="min-h-[220px] rounded-2xl border border-slate-800 bg-slate-900/70 p-4 text-xs text-slate-200"
+        >
+          <p class="text-slate-400">
+            Paste feedback on the left and click “Analyze” to see grouped themes appear here.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    if (typeof window !== "undefined") {
+      window.addEventListener("DOMContentLoaded", () => {
+        const input = document.getElementById("demo-input");
+        const button = document.getElementById("demo-analyze");
+        const output = document.getElementById("demo-output");
+
+        if (!input || !button || !output) return;
+
+        button.addEventListener("click", () => {
+          const lines = input.value
+            .split("\\n")
+            .map((l) => l.trim())
+            .filter(Boolean);
+
+          if (!lines.length) {
+            output.innerHTML = "<p class='text-slate-400'>Please add a few lines of feedback first.</p>";
+            return;
+          }
+
+          // naive mock grouping: bucket by keywords
+          const groups = {
+            Onboarding: [],
+            Pricing: [],
+            Communication: [],
+            Experience: [],
+          };
+
+          for (const line of lines) {
+            const lower = line.toLowerCase();
+            if (lower.includes("onboard") || lower.includes("first time")) {
+              groups.Onboarding.push(line);
+            } else if (lower.includes("price") || lower.includes("plan")) {
+              groups.Pricing.push(line);
+            } else if (lower.includes("support") || lower.includes("email") || lower.includes("response")) {
+              groups.Communication.push(line);
+            } else {
+              groups.Experience.push(line);
+            }
+          }
+
+          const nonEmpty = Object.entries(groups).filter(([, items]) => items.length);
+
+          if (!nonEmpty.length) {
+            output.innerHTML = "<p class='text-slate-400'>No obvious themes detected, but a real AI model would try harder 😉</p>";
+            return;
+          }
+
+          output.innerHTML = nonEmpty
+            .map(
+              ([theme, items]) => `
+              <div class="mb-4">
+                <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 mb-1">${theme}</p>
+                <ul class="space-y-1">
+                  ${items
+                    .map(
+                      (t) =>
+                        `<li class="rounded-xl bg-slate-950/80 border border-slate-800 px-3 py-1.5">“${t.replace(
+                          /"/g,
+                          "&quot;"
+                        )}”</li>`
+                    )
+                    .join("")}
+                </ul>
+              </div>
+            `
+            )
+            .join("");
+        });
+      });
+    }
+  </script>
+</BaseLayout>
