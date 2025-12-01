@@ -1,0 +1,84 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const faqs = [
+  {
+    q: "How does PulseStack connect to our tools?",
+    a: "We support native integrations with Jira, Linear, HubSpot, Intercom, and more. You can also use our API for custom data sources."
+  },
+  {
+    q: "Is my customer data secure?",
+    a: "Yes. Data is encrypted in transit and at rest. We follow industry best practices for access control and are SOC 2 ready."
+  },
+  {
+    q: "How long does it take to see value?",
+    a: "Most teams connect their tools and start seeing prioritized insights within the first 30 minutes."
+  },
+  {
+    q: "Can I try it before paying?",
+    a: "Absolutely. We offer a 14-day free trial with full access to all features and no credit card required."
+  }
+];
+---
+
+<BaseLayout
+  title="PulseStack FAQ – Answers for Product Teams"
+  description="Common questions about PulseStack, security, setup, and pricing."
+>
+  
+  <section class="border-b border-slate-800 bg-slate-950/80">
+    <div class="mx-auto max-w-6xl px-4 py-16 space-y-8">
+      <div class="max-w-2xl space-y-3">
+        <h1 class="text-3xl md:text-4xl font-semibold tracking-tight text-slate-50">
+          Questions, meet answers.
+        </h1>
+        <p class="text-sm md:text-base text-slate-300">
+          Still unsure if PulseStack is the right fit for your team? Here are the questions we hear most often.
+        </p>
+      </div>
+      <div class="space-y-4">
+        {faqs.map((item) => (
+          <details class="group rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
+              <span class="text-sm font-medium text-slate-50">{item.q}</span>
+              <span class="text-slate-500 group-open:hidden text-xs">+</span>
+              <span class="text-slate-500 hidden group-open:inline text-xs">−</span>
+            </summary>
+            <p class="mt-3 text-xs text-slate-300">
+              {item.a}
+            </p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="mx-auto max-w-6xl px-4 py-16">
+    <div class="rounded-3xl border border-indigo-500/40 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-8 md:p-10 flex flex-col md:flex-row gap-8 md:items-center md:justify-between">
+      <div class="space-y-3 max-w-xl">
+        <h2 class="text-2xl md:text-3xl font-semibold tracking-tight text-slate-50">
+          Ready to see PulseStack with your own data?
+        </h2>
+        <p class="text-sm md:text-base text-slate-200">
+          Start a free trial or book a live walkthrough with our team. We’ll help you connect your tools and get your first insights.
+        </p>
+      </div>
+      <div class="w-full max-w-sm space-y-3">
+        <input
+          type="email"
+          placeholder="you@company.com"
+          class="w-full rounded-full border border-slate-700 bg-slate-900/80 px-4 py-2.5 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+        />
+        <button
+          class="w-full rounded-full bg-indigo-500 px-4 py-2.5 text-sm font-medium text-slate-950 hover:bg-indigo-400 transition"
+        >
+          Get started free
+        </button>
+        <p class="text-[11px] text-slate-400">
+          By continuing, you agree to our Terms and acknowledge our Privacy Policy.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,11 +1,112 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const logos = ["AcmeCloud", "Northwind", "BlueLeaf", "HelixOS", "Nova CRM"];
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout
+  title="PulseStack – AI-Powered Customer Insight for Product Teams"
+  description="Turn scattered customer feedback into a clear, prioritized product roadmap with AI."
+>
+  <!-- NAV -->
+  <header class="border-b border-slate-800/60 bg-gradient-to-b from-slate-950 via-slate-950 to-slate-900/80">
+    <!-- HERO -->
+    <section class="mx-auto max-w-6xl px-4 pb-16 pt-10 md:pt-16 grid gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] items-center">
+      <div class="space-y-6">
+        <div class="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/60 px-3 py-1 text-xs text-slate-300">
+          <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <span>New · AI release impact analysis</span>
+        </div>
+        <h1 class="text-3xl md:text-5xl font-semibold tracking-tight text-slate-50">
+          Turn scattered customer feedback into a clear, AI-prioritized roadmap.
+        </h1>
+        <p class="text-slate-300 text-sm md:text-base max-w-xl">
+          PulseStack connects feedback from all your tools, finds patterns with AI, and tells you exactly what to ship next — and why.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a
+            href="/pricing"
+            class="inline-flex items-center justify-center rounded-full bg-indigo-500 px-6 py-2.5 text-sm font-medium text-slate-950 shadow-lg shadow-indigo-500/30 hover:bg-indigo-400 transition"
+          >
+            Start free trial
+          </a>
+          <a
+            href="/pricing"
+            class="inline-flex items-center justify-center rounded-full border border-slate-700 px-6 py-2.5 text-sm text-slate-100 hover:border-indigo-400 hover:text-indigo-100 transition"
+          >
+            Book a live demo
+          </a>
+        </div>
+        <p class="text-xs text-slate-400">
+          No credit card required · 14-day full access · Cancel anytime
+        </p>
+      </div>
+
+      <!-- Dashboard mockup -->
+      <div class="relative">
+        <div class="absolute -inset-4 rounded-3xl bg-indigo-500/20 blur-3xl" aria-hidden="true"></div>
+        <div class="relative rounded-3xl border border-slate-800 bg-slate-900/70 p-4 shadow-xl shadow-indigo-500/20 backdrop-blur">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <p class="text-xs text-slate-400">Today’s signal</p>
+              <p class="text-lg font-medium text-slate-50">“Improve onboarding clarity”</p>
+            </div>
+            <span class="rounded-full bg-emerald-500/15 px-3 py-1 text-xs text-emerald-300">
+              +32% NPS lift potential
+            </span>
+          </div>
+          <div class="grid grid-cols-3 gap-3 mb-4 text-xs">
+            <div class="rounded-xl border border-slate-800 bg-slate-900/80 p-3">
+              <p class="text-slate-400 mb-1">Feedback analyzed</p>
+              <p class="text-2xl font-semibold text-slate-50">18.4k</p>
+              <p class="text-emerald-400 mt-1">+243% vs last month</p>
+            </div>
+            <div class="rounded-xl border border-slate-800 bg-slate-900/80 p-3">
+              <p class="text-slate-400 mb-1">Themes detected</p>
+              <p class="text-2xl font-semibold text-slate-50">47</p>
+              <p class="text-slate-400 mt-1">Grouped by impact</p>
+            </div>
+            <div class="rounded-xl border border-slate-800 bg-slate-900/80 p-3">
+              <p class="text-slate-400 mb-1">At-risk revenue</p>
+              <p class="text-2xl font-semibold text-slate-50">$128k</p>
+              <p class="text-amber-300 mt-1">Flagged for this quarter</p>
+            </div>
+          </div>
+          <div class="rounded-xl border border-slate-800 bg-slate-900/80 p-3">
+            <p class="text-xs text-slate-400 mb-2">Top predicted impact initiatives</p>
+            <ul class="space-y-2 text-xs">
+              <li class="flex items-center justify-between">
+                <span class="text-slate-100">Revamp onboarding checklist</span>
+                <span class="rounded-full bg-emerald-500/20 px-2 py-0.5 text-emerald-300">High</span>
+              </li>
+              <li class="flex items-center justify-between">
+                <span class="text-slate-100">Clarify pricing tiers</span>
+                <span class="rounded-full bg-amber-500/20 px-2 py-0.5 text-amber-300">Medium</span>
+              </li>
+              <li class="flex items-center justify-between">
+                <span class="text-slate-100">In-app release notes</span>
+                <span class="rounded-full bg-slate-700/80 px-2 py-0.5 text-slate-200">Low</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </header>
+
+  <!-- SOCIAL PROOF -->
+  <section class="border-b border-slate-800 bg-slate-950/80">
+    <div class="mx-auto max-w-6xl px-4 py-8">
+      <p class="text-center text-xs uppercase tracking-[0.2em] text-slate-500 mb-4">
+        Trusted by fast-moving product teams at
+      </p>
+      <div class="flex flex-wrap justify-center gap-6 text-xs text-slate-400">
+        {logos.map((logo) => (
+          <div class="px-3 py-1 rounded-full border border-slate-800/80 bg-slate-900/60" data-logo={logo}>
+            {logo}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
