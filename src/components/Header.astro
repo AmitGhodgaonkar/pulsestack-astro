@@ -11,7 +11,8 @@ const linkBase = "block px-2 py-1 hover:text-slate-50 transition";
 const linkActive = "text-slate-50";
 ---
 
-<header id="site-header" class="border-b border-slate-800/60 bg-slate-950/95">
+<header id="site-header" class="sticky top-0 z-50 backdrop-blur-md bg-slate-950/80 border-b border-slate-800/60">
+
   <!-- TOP BAR -->
   <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
     <!-- Logo -->
@@ -121,6 +122,7 @@ const linkActive = "text-slate-50";
 
         const setOpen = (isOpen) => {
           open = isOpen;
+		  document.body.style.overflow = open ? "hidden" : "auto";
 
           menu.classList.toggle("max-h-0", !open);
           menu.classList.toggle("opacity-0", !open);
@@ -204,5 +206,25 @@ const linkActive = "text-slate-50";
     button[data-mobile-menu-toggle][data-open="true"] .bar-bottom {
       transform: translate(-50%, -6px) rotate(-45deg);
     }
+	
+	header#site-header {
+	  box-shadow: 0 2px 12px rgba(0,0,0,.25);
+	}
+	
+	section { padding-block: 6rem; }
+	@media (min-width: 768px) {
+	  section { padding-block: 8rem; }
+	}
+	
+	a.btn {
+	  transition: transform .2s, box-shadow .2s;
+	}
+	a.btn:hover {
+	  transform: translateY(-2px) scale(1.02);
+	  box-shadow: 0 4px 12px rgba(0,0,0,.4);
+	}
+
+
+
   </style>
 </header>
