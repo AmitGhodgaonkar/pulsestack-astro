@@ -150,6 +150,15 @@ const linkActive = "text-slate-50";
   </script>
 
   <style>
+	/* Force hamburger + mobile UI to be hidden on desktop */
+    @media (min-width: 768px) {
+      button[data-mobile-menu-toggle],
+      #mobile-menu,
+      #mobile-backdrop {
+        display: none !important;
+      }
+    }
+  
     /* Hamburger icon → X */
     button[data-mobile-menu-toggle] {
       display: inline-flex;
